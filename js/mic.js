@@ -1,48 +1,56 @@
-const micBtn = document.getElementById("micBtn");
-const promptBox = document.getElementById("prompt");
-const statusBox = document.getElementById("status");
-
 const SpeechRecognition =
   window.SpeechRecognition ||
   window.webkitSpeechRecognition;
 
-if (!SpeechRecognition) {
-  statusBox.textContent =
-    "Speech Recognition not supported.";
-} else {
+if(SpeechRecognition){
 
-  const recognition = new SpeechRecognition();
+  const recognition =
+    new SpeechRecognition();
 
   recognition.lang = "en-US";
-  recognition.continuous = false;
-  recognition.interimResults = false;
 
-  micBtn.addEventListener("click", () => {
-    recognition.start();
-  });
+  window.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-  recognition.onstart = () => {
-    statusBox.textContent = "Listening...";
-    micBtn.textContent = "🎤";
-  };
+      const micBtn =
+        document.getElementById("micBtn");
 
-  recognition.onresult = (event) => {
-    const transcript =
-      event.results[0][0].transcript;
+      const prompt =
+        document.getElementById("prompt");
 
-    promptBox.value = transcript;
-  };
+      const status =
+        document.getElementById("status");
 
-  recognition.onend = () => {
-    micBtn.textContent = "🎙️";
-    statusBox.textContent =
-      "Tap microphone to speak";
-  };
+      micBtn.addEventListener(
+        "click",
+        () => recognition.start()
+      );
 
-  recognition.onerror = (event) => {
-    micBtn.textContent = "🎙️";
+      recognition.onstart = () => {
+        status.textContent =
+          "Listening...";
+      };
 
-    statusBox.textContent =
-      "Error: " + event.error;
-  };
+      recognition.onresult =
+        (event) => {
+
+          prompt.value =
+            event.results[0][0].transcript;
+
+        };
+
+      recognition.onend = () => {
+        status.textContent =
+          "Beacon Online";
+      };
+
+      recognition.onerror = (e) => {
+        status.textContent =
+          "Speech Error: " + e.error;
+      };
+
+    }
+  );
+
 }

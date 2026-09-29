@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Beacon</title>
 
@@ -21,6 +21,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       height: 100vh;
     }
 
@@ -32,25 +33,38 @@
 
     h1 {
       font-size: 2rem;
+      margin-bottom: 30px;
     }
 
     input {
       width: 100%;
       padding: 16px;
-      border-radius: 12px;
-      border: none;
-      margin-top: 20px;
-      font-size: 16px;
       box-sizing: border-box;
+
+      border: none;
+      border-radius: 12px;
+
+      font-size: 16px;
     }
 
     button {
       margin-top: 16px;
-      padding: 16px;
+
+      width: 80px;
+      height: 80px;
+
       border: none;
       border-radius: 12px;
+
+      font-size: 30px;
+
       cursor: pointer;
-      font-size: 18px;
+    }
+
+    #status {
+      margin-top: 12px;
+      color: #a0aec0;
+      font-size: 14px;
     }
   </style>
 </head>
@@ -62,23 +76,26 @@
     <h1>R⭐️ Beacon</h1>
 
     <input
+      id="prompt"
       type="text"
       placeholder="Talk to Beacon..."
     />
 
-    <button>🎙️</button>
+    <button id="micBtn">🎙️</button>
+
+    <div id="status">
+      Tap microphone to speak
+    </div>
 
   </div>
 
   <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
-</script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
 
-js/ui.jsscript>
-js/mic.jsscript>
-js/app.jsscript>
+  <script src="js/mic.js"></script>
 
 </body>
 </html>

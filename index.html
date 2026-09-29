@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Beacon</title>
 
@@ -12,90 +12,133 @@
   <meta name="theme-color" content="#000814">
 
   <style>
-    body {
-      margin: 0;
-      background: #000814;
-      color: white;
-      font-family: system-ui, sans-serif;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    body{
+      margin:0;
+      min-height:100vh;
 
-      height: 100vh;
+      background:#000814;
+      color:white;
+
+      font-family:system-ui,sans-serif;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    .container {
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
+    .container{
+      width:90%;
+      max-width:600px;
+      text-align:center;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 30px;
+    h1{
+      margin-bottom:30px;
+      font-size:2rem;
     }
 
-    input {
-      width: 100%;
-      padding: 16px;
-      box-sizing: border-box;
+    input{
+      width:100%;
+      box-sizing:border-box;
 
-      border: none;
-      border-radius: 12px;
+      padding:18px;
 
-      font-size: 16px;
+      border:none;
+      border-radius:14px;
+
+      font-size:16px;
     }
 
-    button {
-      margin-top: 16px;
+    .buttons{
+      display:flex;
+      gap:12px;
 
-      width: 80px;
-      height: 80px;
+      justify-content:center;
 
-      border: none;
-      border-radius: 12px;
-
-      font-size: 30px;
-
-      cursor: pointer;
+      margin-top:18px;
     }
 
-    #status {
-      margin-top: 12px;
-      color: #a0aec0;
-      font-size: 14px;
+    button{
+      border:none;
+      border-radius:12px;
+
+      padding:16px 20px;
+
+      font-size:18px;
+
+      cursor:pointer;
     }
+
+    #response{
+      margin-top:24px;
+
+      min-height:120px;
+
+      padding:20px;
+
+      border-radius:14px;
+
+      background:#111827;
+
+      text-align:left;
+
+      white-space:pre-wrap;
+      line-height:1.6;
+    }
+
+    #status{
+      margin-top:16px;
+      color:#9ca3af;
+    }
+
   </style>
+
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <h1>R⭐️ Beacon</h1>
+  <h1>R⭐️ Beacon</h1>
 
-    <input
-      id="prompt"
-      type="text"
-      placeholder="Talk to Beacon..."
-    />
+  <input
+    id="prompt"
+    type="text"
+    placeholder="Talk to Beacon..."
+  >
 
-    <button id="micBtn">🎙️</button>
+  <div class="buttons">
 
-    <div id="status">
-      Tap microphone to speak
-    </div>
+    <button id="askBtn">
+      Ask Beacon
+    </button>
+
+    <button id="micBtn">
+      🎙️
+    </button>
 
   </div>
 
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
+  <div id="status">
+    Beacon Online
+  </div>
 
-  <script src="js/mic.js"></script>
+  <div id="response">
+    Ask me anything.
+  </div>
+
+</div>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+
+js/gemini.jsscript>
+js/mic.jsscript>
+js/app.jsscript>
 
 </body>
 </html>

@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Beacon</title>
 
-  manifest.json
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
 
+  <!-- App Icon -->
+  <link rel="icon" href="icon-512.PNG">
+
+  <!-- Mobile Theme Color -->
   <meta name="theme-color" content="#000814">
 
   <style>
@@ -40,6 +45,7 @@
       border: none;
       margin-top: 20px;
       font-size: 16px;
+      box-sizing: border-box;
     }
 
     button {
@@ -48,29 +54,31 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
+      font-size: 18px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <h1>R⭐️ Beacon</h1>
+    <h1>R⭐️ Beacon</h1>
 
-  <input
-    placeholder="Talk to Beacon..."
-  />
+    <input
+      type="text"
+      placeholder="Talk to Beacon..."
+    />
 
-  <button>🎙️</button>
+    <button>🎙️</button>
 
-</div>
+  </div>
 
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
 
 </body>
 </html>

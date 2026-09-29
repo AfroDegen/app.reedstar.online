@@ -6,13 +6,9 @@
 
   <title>Beacon</title>
 
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- App Icon -->
   <link rel="icon" href="icon-512.PNG">
 
-  <!-- Mobile Theme Color -->
   <meta name="theme-color" content="#000814">
 
   <style>
@@ -74,7 +70,7 @@
 
   </div>
 
-<script>
+  <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js");
     }

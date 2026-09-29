@@ -1,23 +1,48 @@
-function initMic() {
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+const micBtn = document.getElementById("micBtn");
+const promptBox = document.getElementById("prompt");
+const statusBox = document.getElementById("status");
 
-  if (!SpeechRecognition) {
-    alert("Speech Recognition not supported");
-    return;
-  }
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+  statusBox.textContent =
+    "Speech Recognition not supported.";
+} else {
 
   const recognition = new SpeechRecognition();
 
-  const button = document.querySelector("button");
-  const input = document.querySelector("input");
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = false;
 
-  button.addEventListener("click", () => {
+  micBtn.addEventListener("click", () => {
     recognition.start();
   });
 
+  recognition.onstart = () => {
+    statusBox.textContent = "Listening...";
+    micBtn.textContent = "🎤";
+  };
+
   recognition.onresult = (event) => {
-    input.value = event.results[0][0].transcript;
+    const transcript =
+      event.results[0][0].transcript;
+
+    promptBox.value = transcript;
+  };
+
+  recognition.onend = () => {
+    micBtn.textContent = "🎙️";
+    statusBox.textContent =
+      "Tap microphone to speak";
+  };
+
+  recognition.onerror = (event) => {
+    micBtn.textContent = "🎙️";
+
+    statusBox.textContent =
+      "Error: " + event.error;
   };
 }

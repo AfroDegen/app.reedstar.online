@@ -47,14 +47,15 @@ body{
 .message{
   width:fit-content;
 
-  max-width:80%;
+  max-width:75%;
 
-  line-height:1.6;
+  line-height:1.45;
 
-  margin-bottom:20px;
+  margin-bottom:14px;
 
   word-wrap:break-word;
 }
+
 
 
 .user{

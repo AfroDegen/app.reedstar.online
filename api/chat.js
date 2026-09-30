@@ -20,10 +20,12 @@ module.exports = async (req, res) => {
       "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
         },
+
         body: JSON.stringify({
           model: "openai/gpt-oss-20b",
 
@@ -47,8 +49,8 @@ module.exports = async (req, res) => {
     console.log(JSON.stringify(data));
 
     const answer =
-  JSON.stringify(data);
-
+      data?.choices?.[0]?.message?.content ||
+      "No response generated.";
 
     return res.status(200).json({
       answer
@@ -59,7 +61,7 @@ module.exports = async (req, res) => {
     console.error(error);
 
     return res.status(500).json({
-      answer: "Groq Error",
+      answer: "Beacon encountered an error.",
       details: error.message
     });
 

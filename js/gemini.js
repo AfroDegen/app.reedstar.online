@@ -1,71 +1,41 @@
-const promptInput =
-  document.getElementById("prompt");
+async function sendToBeacon(question) {
 
-const sendBtn =
-  document.getElementById("sendBtn");
+  const chat =
+    document.getElementById("chat");
 
-const chat =
-  document.getElementById("chat");
+  // User message
+  const userMessage =
+    document.createElement("div");
 
-function updateButton() {
+  userMessage.className =
+    "message";
 
-  if (promptInput.value.trim().length > 0) {
-    sendBtn.classList.add("show-send");
-  } else {
-    sendBtn.classList.remove("show-send");
-  }
+  userMessage.textContent =
+    question;
 
-}
+  chat.appendChild(userMessage);
 
-promptInput.addEventListener(
-  "input",
-  updateButton
-);
+  // Beacon placeholder
+  const beaconMessage =
+    document.createElement("div");
 
-sendBtn.addEventListener(
-  "click",
-  async () => {
+  beaconMessage.className =
+    "message beacon";
 
-    const question =
-      promptInput.value.trim();
+  beaconMessage.textContent =
+    "Thinking...";
 
-    if (!question) {
-      return;
-    }
+  chat.appendChild(beaconMessage);
 
-    promptInput.value = "";
+  chat.scrollTop =
+    chat.scrollHeight;
 
-    updateButton();
+  try {
 
-    const userMessage =
-      document.createElement("div");
-
-    userMessage.className =
-      "message user";
-
-    userMessage.textContent =
-      question;
-
-    chat.appendChild(userMessage);
-
-    const beaconMessage =
-      document.createElement("div");
-
-    beaconMessage.className =
-      "message beacon";
-
-    beaconMessage.textContent =
-      "Thinking...";
-
-    chat.appendChild(beaconMessage);
-
-    chat.scrollTop =
-      chat.scrollHeight;
-
-    try {
-
-      const response =
-        await fetch("/api/chat", {
+    const response =
+      await fetch(
+        "/api/chat",
+        {
           method: "POST",
 
           headers: {
@@ -75,39 +45,34 @@ sendBtn.addEventListener(
           body: JSON.stringify({
             message: question
           })
-        });
+        }
+      );
 
-      const data =
-        await response.json();
+    const data =
+      await response.json();
 
-      beaconMessage.textContent =
-        data.answer ||
-        "No response generated.";
+    const answer =
+      data.answer ||
+      "No response generated.";
 
-    } catch (error) {
-
-      beaconMessage.textContent =
-        "Beacon encountered an error.";
-
-    }
+    beaconMessage.textContent =
+      answer;
 
     chat.scrollTop =
       chat.scrollHeight;
 
-  }
-);
-
-promptInput.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (event.key === "Enter") {
-
-      event.preventDefault();
-
-      sendBtn.click();
-
+    // Voice output
+    if (typeof speak === "function") {
+      await speak(answer);
     }
 
+  } catch (error) {
+
+    console.error(error);
+
+    beaconMessage.textContent =
+      "Beacon encountered an error.";
+
   }
-);
+
+}

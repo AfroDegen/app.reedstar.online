@@ -63,7 +63,8 @@ async function sendToBeacon(question) {
 
     // Voice output
     if (typeof speak === "function") {
-      await speak(answer);
+      // await speak(answer);
+
     }
 
   } catch (error) {

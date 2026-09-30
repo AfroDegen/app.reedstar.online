@@ -1,18 +1,46 @@
-const sendBtn =
-  document.getElementById("sendBtn");
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-sendBtn.addEventListener(
-  "click",
-  async () => {
+    const input =
+      document.getElementById("prompt");
 
-    const question =
-      input.value.trim();
+    const sendBtn =
+      document.getElementById("sendBtn");
 
-    if (!question) return;
+    async function submitQuestion() {
 
-    input.value = "";
+      const question =
+        input.value.trim();
 
-    await sendToBeacon(question);
+      if (!question) {
+        return;
+      }
+
+      input.value = "";
+
+      await sendToBeacon(question);
+
+    }
+
+    sendBtn.addEventListener(
+      "click",
+      async () => {
+        await submitQuestion();
+      }
+    );
+
+    input.addEventListener(
+      "keydown",
+      async (event) => {
+
+        if (event.key === "Enter") {
+          event.preventDefault();
+          await submitQuestion();
+        }
+
+      }
+    );
 
   }
 );

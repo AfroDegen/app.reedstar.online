@@ -1,8 +1,8 @@
 const promptInput =
   document.getElementById("prompt");
 
-const actionBtn =
-  document.getElementById("actionBtn");
+const sendBtn =
+  document.getElementById("sendBtn");
 
 const chat =
   document.getElementById("chat");
@@ -99,7 +99,8 @@ promptInput.addEventListener(
   (event) => {
 
     if (event.key === "Enter") {
-      actionBtn.click();
+      sendBtn.click();
+
     }
 
   }

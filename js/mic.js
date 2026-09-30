@@ -1,40 +1,72 @@
+const micBtn =
+  document.getElementById("micBtn");
+
+const promptInput =
+  document.getElementById("prompt");
+
 const SpeechRecognition =
   window.SpeechRecognition ||
   window.webkitSpeechRecognition;
 
-if(SpeechRecognition){
+if (!SpeechRecognition) {
+
+  console.log(
+    "Speech recognition not supported."
+  );
+
+} else {
 
   const recognition =
     new SpeechRecognition();
 
-  recognition.lang="en-US";
+  recognition.lang = "en-US";
 
-  window.addEventListener(
-    "DOMContentLoaded",
+  recognition.continuous = false;
+
+  recognition.interimResults = false;
+
+  micBtn.addEventListener(
+    "click",
     () => {
 
-      const input =
-        document.getElementById("prompt");
-
-      const mic =
-        document.getElementById("micBtn");
-
-      mic.addEventListener(
-        "click",
-        () => {
-          recognition.start();
-        }
-      );
-
-      recognition.onresult =
-        (event) => {
-
-          input.value =
-            event.results[0][0].transcript;
-
-        };
+      recognition.start();
 
     }
   );
+
+  recognition.onstart = () => {
+
+    micBtn.style.opacity = "0.5";
+
+  };
+
+  recognition.onresult = (event) => {
+
+    const transcript =
+      event.results[0][0].transcript;
+
+    promptInput.value =
+      transcript;
+
+    promptInput.focus();
+
+  };
+
+  recognition.onend = () => {
+
+    micBtn.style.opacity = "1";
+
+  };
+
+  recognition.onerror = (event) => {
+
+    console.log(
+      "Speech Error:",
+      event.error
+    );
+
+    micBtn.style.opacity = "1";
+
+  };
 
 }

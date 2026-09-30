@@ -41,6 +41,9 @@ ${message}`
     );
 
     const data = await response.json();
+return res.status(200).json({
+  answer: JSON.stringify(data)
+});
 
     console.log(JSON.stringify(data));
 

@@ -1,16 +1,29 @@
 const promptInput =
   document.getElementById("prompt");
 
+const actionBtn =
+  document.getElementById("actionBtn");
+
 const chat =
   document.getElementById("chat");
 
-promptInput.addEventListener(
-  "keydown",
-  async (event) => {
+function updateButton() {
 
-    if (event.key !== "Enter") {
-      return;
-    }
+  if (promptInput.value.trim().length > 0) {
+    actionBtn.classList.add("show-send");
+  } else {
+    actionBtn.classList.remove("show-send");
+  }
+}
+
+promptInput.addEventListener(
+  "input",
+  updateButton
+);
+
+actionBtn.addEventListener(
+  "click",
+  async () => {
 
     const question =
       promptInput.value.trim();
@@ -20,6 +33,8 @@ promptInput.addEventListener(
     }
 
     promptInput.value = "";
+
+    updateButton();
 
     const userMessage =
       document.createElement("div");
@@ -50,12 +65,14 @@ promptInput.addEventListener(
 
       const response =
         await fetch("/api/chat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json"
           },
-          body: JSON.stringify({
-            message: question
+
+          body:JSON.stringify({
+            message:question
           })
         });
 
@@ -66,16 +83,24 @@ promptInput.addEventListener(
         data.answer ||
         "No response generated.";
 
-    } catch (error) {
-
-      console.error(error);
+    } catch(error){
 
       beaconMessage.textContent =
         "Beacon encountered an error.";
-
     }
 
     chat.scrollTop =
       chat.scrollHeight;
+  }
+);
+
+promptInput.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (event.key === "Enter") {
+      actionBtn.click();
+    }
+
   }
 );

@@ -14,21 +14,27 @@ module.exports = async (req, res) => {
       `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GOOGLE\_TTS\_API\_KEY}\`,
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json"
         },
+
         body: JSON.stringify({
           input: {
             text
           },
+
           voice: {
             languageCode: "en-US",
             name: "en-US-Neural2-D"
           },
+
           audioConfig: {
             audioEncoding: "MP3"
           }
+
         })
+
       }
     );
 
@@ -43,7 +49,7 @@ module.exports = async (req, res) => {
     console.error(error);
 
     return res.status(500).json({
-      error: "Text-to-Speech failed"
+      error: "TTS failed"
     });
 
   }

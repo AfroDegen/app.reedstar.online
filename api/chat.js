@@ -46,8 +46,8 @@ module.exports = async (req, res) => {
     console.log(JSON.stringify(data));
 
     const answer =
-      data?.choices?.[0]?.message?.content ||
-      "No response generated.";
+  JSON.stringify(data);
+
 
     return res.status(200).json({
       answer

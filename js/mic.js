@@ -25,10 +25,22 @@ if (!SpeechRecognition) {
 
   recognition.interimResults = false;
 
-  micBtn.addEventListener("click", () => {
-  alert("Mic clicked");
-});
+  micBtn.addEventListener(
+    "click",
+    () => {
 
+      try {
+
+        recognition.start();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }
+  );
 
   recognition.onstart = () => {
 

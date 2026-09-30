@@ -10,10 +10,11 @@ const chat =
 function updateButton() {
 
   if (promptInput.value.trim().length > 0) {
-    actionBtn.classList.add("show-send");
+    sendBtn.classList.add("show-send");
   } else {
-    actionBtn.classList.remove("show-send");
+    sendBtn.classList.remove("show-send");
   }
+
 }
 
 promptInput.addEventListener(
@@ -21,7 +22,7 @@ promptInput.addEventListener(
   updateButton
 );
 
-actionBtn.addEventListener(
+sendBtn.addEventListener(
   "click",
   async () => {
 
@@ -65,14 +66,14 @@ actionBtn.addEventListener(
 
       const response =
         await fetch("/api/chat", {
-          method:"POST",
+          method: "POST",
 
-          headers:{
-            "Content-Type":"application/json"
+          headers: {
+            "Content-Type": "application/json"
           },
 
-          body:JSON.stringify({
-            message:question
+          body: JSON.stringify({
+            message: question
           })
         });
 
@@ -83,14 +84,16 @@ actionBtn.addEventListener(
         data.answer ||
         "No response generated.";
 
-    } catch(error){
+    } catch (error) {
 
       beaconMessage.textContent =
         "Beacon encountered an error.";
+
     }
 
     chat.scrollTop =
       chat.scrollHeight;
+
   }
 );
 
@@ -99,6 +102,9 @@ promptInput.addEventListener(
   (event) => {
 
     if (event.key === "Enter") {
+
+      event.preventDefault();
+
       sendBtn.click();
 
     }

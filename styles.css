@@ -45,7 +45,10 @@ body{
 }
 
 .message{
+  width:fit-content;
+
   max-width:80%;
+
   line-height:1.6;
 
   margin-bottom:20px;
@@ -53,15 +56,23 @@ body{
   word-wrap:break-word;
 }
 
+
 .user{
   margin-left:auto;
+
+  display:inline-block;
+
+  max-width:80%;
+  width:fit-content;
 
   background:#2563eb;
   color:white;
 
   padding:16px;
+
   border-radius:18px;
 }
+
 
 .beacon{
   background:#f3f4f6;

@@ -1,58 +1,81 @@
-async function sendToBeacon(question) {
+const promptInput =
+  document.getElementById("prompt");
 
-  const chat =
-    document.getElementById("chat");
+const chat =
+  document.getElementById("chat");
 
-  const userMessage =
-    document.createElement("div");
+promptInput.addEventListener(
+  "keydown",
+  async (event) => {
 
-  userMessage.className =
-    "message";
+    if (event.key !== "Enter") {
+      return;
+    }
 
-  userMessage.textContent =
-    question;
+    const question =
+      promptInput.value.trim();
 
-  chat.appendChild(userMessage);
+    if (!question) {
+      return;
+    }
 
-  const beaconMessage =
-    document.createElement("div");
+    promptInput.value = "";
 
-  beaconMessage.className =
-    "message beacon";
+    const userMessage =
+      document.createElement("div");
 
-  beaconMessage.textContent =
-    "Thinking...";
+    userMessage.className =
+      "message user";
 
-  chat.appendChild(beaconMessage);
+    userMessage.textContent =
+      question;
 
-  try {
+    chat.appendChild(userMessage);
 
-    const response =
-      await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: question
-        })
-      });
+    const beaconMessage =
+      document.createElement("div");
 
-    const data =
-      await response.json();
+    beaconMessage.className =
+      "message beacon";
 
     beaconMessage.textContent =
-      data.answer;
+      "Thinking...";
 
-  } catch (error) {
+    chat.appendChild(beaconMessage);
 
-    console.error(error);
+    chat.scrollTop =
+      chat.scrollHeight;
 
-    beaconMessage.textContent =
-      "Beacon encountered an error.";
+    try {
 
+      const response =
+        await fetch("/api/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: question
+          })
+        });
+
+      const data =
+        await response.json();
+
+      beaconMessage.textContent =
+        data.answer ||
+        "No response generated.";
+
+    } catch (error) {
+
+      console.error(error);
+
+      beaconMessage.textContent =
+        "Beacon encountered an error.";
+
+    }
+
+    chat.scrollTop =
+      chat.scrollHeight;
   }
-
-  chat.scrollTop =
-    chat.scrollHeight;
-}
+);

@@ -9,7 +9,17 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   micBtn.addEventListener("click", () => {
-    alert("Mic button clicked");
-  });
+
+  alert("Starting recognition");
+
+  try {
+
+    recognition.start();
+
+  } catch (error) {
+
+    alert(error.message);
+
+  }
 
 });

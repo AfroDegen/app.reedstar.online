@@ -46,6 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
       );
 
       console.log(error);
+
     }
 
   });
@@ -60,8 +61,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
   recognition.onresult = (event) => {
 
+    alert("Result received");
+
     const transcript =
       event.results[0][0].transcript;
+
+    alert("Transcript: " + transcript);
 
     promptInput.value =
       transcript;
@@ -70,25 +75,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
     micBtn.style.opacity = "1";
 
-    alert(
-      "Transcript: " + transcript
-    );
-
   };
 
   recognition.onend = () => {
 
-    micBtn.style.opacity = "1";
+    alert("Recognition ended");
 
-    console.log(
-      "Recognition ended"
-    );
+    micBtn.style.opacity = "1";
 
   };
 
   recognition.onerror = (event) => {
-
-    micBtn.style.opacity = "1";
 
     alert(
       "Speech Error: " + event.error
@@ -98,6 +95,8 @@ window.addEventListener("DOMContentLoaded", () => {
       "Speech Error:",
       event.error
     );
+
+    micBtn.style.opacity = "1";
 
   };
 

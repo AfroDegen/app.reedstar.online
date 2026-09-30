@@ -2,43 +2,28 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
-    const askBtn =
-      document.getElementById("askBtn");
-
-    const prompt =
+    const input =
       document.getElementById("prompt");
 
-    const response =
-      document.getElementById("response");
+    input.addEventListener(
+      "keydown",
+      async (event) => {
 
-    const status =
-      document.getElementById("status");
-
-    askBtn.addEventListener(
-      "click",
-      async () => {
+        if(event.key !== "Enter"){
+          return;
+        }
 
         const question =
-          prompt.value.trim();
+          input.value.trim();
 
         if(!question){
           return;
         }
 
-        status.textContent =
-          "Beacon is thinking...";
+        input.value = "";
 
-        response.textContent =
-          "Generating response...";
+        await sendToBeacon(question);
 
-        const answer =
-          await askGemini(question);
-
-        response.textContent =
-          answer;
-
-        status.textContent =
-          "Beacon Online";
       }
     );
 

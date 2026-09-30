@@ -77,27 +77,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
   };
 
-  recognition.onend = () => {
-
-    alert("Recognition ended");
-
-    micBtn.style.opacity = "1";
-
-  };
-
-  recognition.onerror = (event) => {
-
-    alert(
-      "Speech Error: " + event.error
-    );
-
-    console.log(
-      "Speech Error:",
-      event.error
-    );
-
-    micBtn.style.opacity = "1";
-
-  };
-
-});
+  recognition.onerror = () => {};
+recognition.onend = () => {};

@@ -10,30 +10,27 @@ module.exports = async (req, res) => {
 
     const { message } = req.body;
 
-    if (!message) {
-      return res.status(400).json({
-        error: "No message provided"
-      });
-    }
-
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      "https://api.groq.com/openai/v1/chat/completions",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `You are Beacon, a Business Discovery Intelligence assistant created by Reedstar Royal Ltd.
 
-Question:
-${message}`
-                }
-              ]
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
+        },
+
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are Beacon, a Business Discovery Intelligence assistant created by Reedstar Royal Ltd."
+            },
+            {
+              role: "user",
+              content: message
             }
           ]
         })
@@ -41,14 +38,9 @@ ${message}`
     );
 
     const data = await response.json();
-return res.status(200).json({
-  answer: JSON.stringify(data)
-});
-
-    console.log(JSON.stringify(data));
 
     const answer =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      data?.choices?.[0]?.message?.content ||
       "No response generated.";
 
     return res.status(200).json({
@@ -60,7 +52,7 @@ return res.status(200).json({
     console.error(error);
 
     return res.status(500).json({
-      answer: "Gemini Error",
+      answer: "Groq Error",
       details: error.message
     });
 

@@ -7,48 +7,32 @@ if(SpeechRecognition){
   const recognition =
     new SpeechRecognition();
 
-  recognition.lang = "en-US";
+  recognition.lang="en-US";
 
   window.addEventListener(
     "DOMContentLoaded",
     () => {
 
-      const micBtn =
-        document.getElementById("micBtn");
-
-      const prompt =
+      const input =
         document.getElementById("prompt");
 
-      const status =
-        document.getElementById("status");
+      const mic =
+        document.getElementById("micBtn");
 
-      micBtn.addEventListener(
+      mic.addEventListener(
         "click",
-        () => recognition.start()
+        () => {
+          recognition.start();
+        }
       );
-
-      recognition.onstart = () => {
-        status.textContent =
-          "Listening...";
-      };
 
       recognition.onresult =
         (event) => {
 
-          prompt.value =
+          input.value =
             event.results[0][0].transcript;
 
         };
-
-      recognition.onend = () => {
-        status.textContent =
-          "Beacon Online";
-      };
-
-      recognition.onerror = (e) => {
-        status.textContent =
-          "Speech Error: " + e.error;
-      };
 
     }
   );

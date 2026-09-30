@@ -1,31 +1,25 @@
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const input =
-      document.getElementById("prompt");
+  const input =
+    document.getElementById("prompt");
 
-    input.addEventListener(
-      "keydown",
-      async (event) => {
+  input.addEventListener("keydown", async (event) => {
 
-        if(event.key !== "Enter"){
-          return;
-        }
+    if (event.key !== "Enter") {
+      return;
+    }
 
-        const question =
-          input.value.trim();
+    const question =
+      input.value.trim();
 
-        if(!question){
-          return;
-        }
+    if (!question) {
+      return;
+    }
 
-        input.value = "";
+    input.value = "";
 
-        await sendToBeacon(question);
+    await sendToBeacon(question);
 
-      }
-    );
+  });
 
-  }
-);
+});

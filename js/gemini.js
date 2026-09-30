@@ -1,56 +1,54 @@
-const GEMINI_API_KEY =
-"PUT_YOUR_GEMINI_API_KEY_HERE";
+async function sendToBeacon(question) {
 
-async function askGemini(prompt){
+  const chat =
+    document.getElementById("chat");
+
+  const user =
+    document.createElement("div");
+
+  user.className = "message user";
+  user.textContent = question;
+
+  chat.appendChild(user);
+
+  const beacon =
+    document.createElement("div");
+
+  beacon.className = "message beacon";
+  beacon.textContent = "Thinking...";
+
+  chat.appendChild(beacon);
+
+  chat.scrollTop = chat.scrollHeight;
 
   try {
 
     const response =
-      await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI\_API\_KEY}\`,
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":"application/json"
-          },
-
-          body:JSON.stringify({
-
-            contents:[
-              {
-                parts:[
-                  {
-                    text:
-`You are Beacon, a Business Discovery Intelligence assistant created by Reedstar Royal Ltd.
-
-Question:
-${prompt}`
-                  }
-                ]
-              }
-            ]
-
-          })
-
-        }
-      );
+      await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: question
+        })
+      });
 
     const data =
       await response.json();
 
-    return (
-      data?.candidates?.[0]?.content?.parts?.[0]?.text
-      ||
-      "No response received."
-    );
+    beacon.textContent =
+      data.answer ||
+      "No response received.";
 
-  } catch(error){
+  } catch (error) {
 
     console.error(error);
 
-    return "Beacon encountered an error.";
+    beacon.textContent =
+      "Beacon encountered an error.";
 
   }
 
+  chat.scrollTop = chat.scrollHeight;
 }

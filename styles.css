@@ -60,27 +60,33 @@ body{
 .user{
   margin-left:auto;
 
-  display:inline-block;
-
-  max-width:80%;
   width:fit-content;
-
-  background:#2563eb;
-  color:white;
+  max-width:80%;
 
   padding:16px;
 
   border-radius:18px;
+
+  background:#ececec;
+
+  color:#111827;
 }
+
 
 
 .beacon{
-  background:#f3f4f6;
-  color:#111827;
+  width:fit-content;
+  max-width:80%;
 
   padding:16px;
+
   border-radius:18px;
+
+  background:#f5f5f5;
+
+  color:#111827;
 }
+
 
 #composer{
   position:fixed;

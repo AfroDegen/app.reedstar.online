@@ -1,25 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
+const sendBtn =
+  document.getElementById("sendBtn");
 
-  const input =
-    document.getElementById("prompt");
-
-  input.addEventListener("keydown", async (event) => {
-
-    if (event.key !== "Enter") {
-      return;
-    }
+sendBtn.addEventListener(
+  "click",
+  async () => {
 
     const question =
       input.value.trim();
 
-    if (!question) {
-      return;
-    }
+    if (!question) return;
 
     input.value = "";
 
     await sendToBeacon(question);
 
-  });
-
-});
+  }
+);

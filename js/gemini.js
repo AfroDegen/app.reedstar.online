@@ -3,23 +3,27 @@ async function sendToBeacon(question) {
   const chat =
     document.getElementById("chat");
 
-  const user =
+  const userMessage =
     document.createElement("div");
 
-  user.className = "message user";
-  user.textContent = question;
+  userMessage.className =
+    "message";
 
-  chat.appendChild(user);
+  userMessage.textContent =
+    question;
 
-  const beacon =
+  chat.appendChild(userMessage);
+
+  const beaconMessage =
     document.createElement("div");
 
-  beacon.className = "message beacon";
-  beacon.textContent = "Thinking...";
+  beaconMessage.className =
+    "message beacon";
 
-  chat.appendChild(beacon);
+  beaconMessage.textContent =
+    "Thinking...";
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.appendChild(beaconMessage);
 
   try {
 
@@ -37,18 +41,18 @@ async function sendToBeacon(question) {
     const data =
       await response.json();
 
-    beacon.textContent =
-      data.answer ||
-      "No response received.";
+    beaconMessage.textContent =
+      data.answer;
 
   } catch (error) {
 
     console.error(error);
 
-    beacon.textContent =
+    beaconMessage.textContent =
       "Beacon encountered an error.";
 
   }
 
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop =
+    chat.scrollHeight;
 }
